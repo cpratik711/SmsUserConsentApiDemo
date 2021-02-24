@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SmsApiDemo</string>
     <string name="enter_the_verification_code">Enter the verification code</string>
+    <string name="sms_user_consent_text_reading">SMS User Consent Text Reading</string>
 </resources>

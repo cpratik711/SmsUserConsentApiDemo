@@ -3,12 +3,10 @@ package com.pratik.smsapidemo
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.google.android.gms.auth.api.credentials.Credential
-import com.google.android.gms.auth.api.credentials.Credentials
-import com.google.android.gms.auth.api.credentials.HintRequest
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.pratik.smsapidemo.databinding.ActivityMainBinding
 
@@ -21,12 +19,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     lateinit var smsBroadcastReceiver: SmsBroadcastReceiver
+    lateinit var etVerificationCode: EditText
     private val CREDENTIAL_PICKER_REQUEST = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
+        etVerificationCode = binding.filledTextField.editText!!
         setContentView(view)
         startSmsUserConsent()
     }
@@ -79,21 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun requestHint() {
-        val hintRequest = HintRequest.Builder()
-            .setPhoneNumberIdentifierSupported(true)
-            .build()
-        val credentialsClient = Credentials.getClient(this)
-        val intent = credentialsClient.getHintPickerIntent(hintRequest)
-        startIntentSenderForResult(
-            intent.intentSender,
-            CREDENTIAL_PICKER_REQUEST,
-            null, 0, 0, 0
-        )
-
-    }
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQ_USER_CONSENT -> {
@@ -101,8 +86,7 @@ class MainActivity : AppCompatActivity() {
                     //That gives all message to us. We need to get the code from inside with regex
                     val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
                     val code = message?.let { fetchVerificationCode(it) }
-
-                    binding.etVerificationCode.setText(code)
+                    etVerificationCode.setText(code)
                 }
             }
             else -> {

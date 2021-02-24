@@ -6,16 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etVerificationCode"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvText"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_the_verification_code"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/sms_user_consent_text_reading"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/filledTextField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filledTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/enter_the_verification_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
