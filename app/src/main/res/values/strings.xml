@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SmsApiDemo</string>
+    <string name="enter_the_verification_code">Enter the verification code</string>
+</resources>
